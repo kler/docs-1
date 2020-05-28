@@ -35,6 +35,7 @@ $id_token  = rawurldecode($_GET['id_token']);
 
 $token_issuer  = 'https://'.getenv('AUTH0_DOMAIN').'/';
 $signature_verifier = null;
+$audience = 'The expected audinece';
 
 if ('RS256' === $_GET['token_alg']) {
     $jwks_fetcher = new JWKFetcher();
@@ -46,7 +47,7 @@ if ('RS256' === $_GET['token_alg']) {
 
 $token_verifier = new IdTokenVerifier(
     $token_issuer,
-    getenv('AUTH0_CLIENT_ID'),
+    $audience,
     $signature_verifier
 );
 
